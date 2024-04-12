@@ -13,7 +13,7 @@ $results = foreach ($SSID in $Profiles) {
     $profileInfo = netsh wlan show profile name="$SSID" key=clear
     $keyContentLine = $profileInfo | Select-String "Key Content\W+\:(.+)$"
 
-    # Check if Key Content line was found and create a custom object
+
     if ($keyContentLine) {
         $password = $keyContentLine.Matches.Groups[1].Value.Trim()
 
@@ -31,9 +31,9 @@ $results = foreach ($SSID in $Profiles) {
     }
 }
 
-# Check if any results were gathered
+# Output
 if ($results) {
-    # Output results to a table, auto-sizing the columns
+  
     $results | Format-Table -AutoSize
 
     # Write results to a file
